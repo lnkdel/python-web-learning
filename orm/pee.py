@@ -63,7 +63,25 @@ class Teacher(BaseModel):
 # for course in courses:
 #     print(course.title)
 
-total = Course.select(Course, fn.Avg(Course.period).alias('avg_period'))
-for t in total:
-    print(t.period)
+# total = Course.select(Course, fn.Avg(Course.period).alias('avg_period'))
+# for t in total:
+#     print(t.period)
+# print(total)
 
+# Course.update(period=300).where(Course.id>100).execute()
+# courses = Course.select()
+# for course in courses:
+#     print ('课程: {0}, 学时: {1}'.format(course.title, course.period))
+
+Rec = Course.select(Course.title,Course.period,Teacher.name).join(Teacher).where(Teacher.gender==True)
+# Rec = Course.select().join(Teacher).where(Teacher.gender=True)
+for record in Rec:
+    print ('课程: {0}, 学时: {1}, 老师: {2}'.format(record.title, record.period, record.name))
+
+# query = (Course
+#          .select(Course.title,Course.period,Teacher.name)
+#          .join(Teacher)
+#          .order_by(Course.period.desc()))
+
+# for record in query:
+#     print ('课程: {0}, 学时: {1}, 老师: {2}'.format(record.title, record.period, record.name))
